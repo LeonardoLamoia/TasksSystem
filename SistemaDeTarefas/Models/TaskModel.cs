@@ -8,5 +8,5 @@ public class TaskModel
     
     public string? Description { get; set; }
     
-    public int Status { get; set; }
+    public TaskStatus Status { get; set; }
 }
