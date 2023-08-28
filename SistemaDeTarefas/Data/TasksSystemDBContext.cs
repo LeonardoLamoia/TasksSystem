@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SistemaDeTarefas.Data.Map;
 using SistemaDeTarefas.Models;
 
 namespace SistemaDeTarefas.Data;
@@ -16,6 +17,9 @@ public class TasksSystemDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new UserMap());
+        modelBuilder.ApplyConfiguration(new TaskMap());
+        
         base.OnModelCreating(modelBuilder);
     }
 }  

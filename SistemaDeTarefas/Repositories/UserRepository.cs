@@ -41,7 +41,7 @@ public class UserRepository : IUserRepository
            throw new Exception($"Usuário para o ID: {id} não foi encontrado no banco de dados.");
        }
 
-       userById.Nome = user.Nome;
+       userById.Name = user.Name;
        userById.Email = user.Email;
        
        _dbContext.Users.Update(userById);
