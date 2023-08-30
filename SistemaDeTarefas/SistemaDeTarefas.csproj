@@ -12,11 +12,11 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
 
@@ -24,6 +24,14 @@
     <ItemGroup>
       <Compile Remove="Controllers\User.cs" />
       <Compile Remove="Controllers\WeatherForecastController.cs" />
+      <Compile Remove="Migrations\20230828201247_InitialDB.cs" />
+      <Compile Remove="Migrations\20230828201247_InitialDB.Designer.cs" />
+      <Compile Remove="Migrations\TasksSystemDbContextModelSnapshot.cs" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="Migrations\" />
     </ItemGroup>
 
 

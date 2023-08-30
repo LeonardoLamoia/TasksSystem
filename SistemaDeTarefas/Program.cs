@@ -1,37 +1,42 @@
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using SistemaDeTarefas.Data;
 using SistemaDeTarefas.Repositories;
 using SistemaDeTarefas.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Adicionar serviços ao contêiner.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddEntityFrameworkSqlServer()
-    .AddDbContext<TasksSystemDbContext>(
-        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"))
-        );
+// Configurar o contexto do banco de dados com o provedor MySQL
+builder.Services.AddEntityFrameworkMySql()
+    .AddDbContext<TasksSystemDbContext>(options =>
+    {
+        var connectionString = builder.Configuration.GetConnectionString("DataBase");
+
+        options.UseMySql(connectionString,
+            new MySqlServerVersion(new Version(8, 0, 26))); // Versão do MySQL
+    });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configurar o pipeline de solicitação HTTP.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
+    });
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
